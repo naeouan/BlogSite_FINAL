@@ -210,7 +210,7 @@ app.delete('/post/:id', authMiddleware, async (req, res) => {
 });
 
 // Serve React app (if built)
-const reactBuildPath = path.join(__dirname, 'client', 'build');
+const reactBuildPath = path.join(__dirname, '..', 'client', 'build');
 if (fs.existsSync(reactBuildPath)) {
   app.use(express.static(reactBuildPath));
   app.get('*', (req, res) => {
