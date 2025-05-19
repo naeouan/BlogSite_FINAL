@@ -34,11 +34,13 @@ Frontend Setup:
 
 cd client
 npx create-react-app client
+
 npm install react react-dom react-quill react-router-dom react-scripts date-fns web-vitals @testing-library/dom @testing-library/jest-dom @testing-library/react @testing-library/user-event
 
 Backend Setup:
 
 cd api
+
 npm install express cors mongoose jsonwebtoken cors multer bcrypt cookie-parser dotenv
 
 If react-quill is incompatible: Downgrade react to 18.2.0
