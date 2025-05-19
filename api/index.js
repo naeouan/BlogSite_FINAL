@@ -10,8 +10,6 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
-console.log('JWT_SECRET:', process.env.JWT_SECRET);
 
 const app = express();
 const salt = bcrypt.genSaltSync(10);
@@ -19,7 +17,7 @@ const secret = process.env.JWT_SECRET;
 const PORT = process.env.PORT || 4000;
 
 // CORS config
-const allowedOrigins = ['http://localhost:3000', 'https://dota2blogsite.onrender.com'];
+const allowedOrigins = ['http://localhost:3000', 'https://blogsite-final.onrender.com'];
 app.use(cors({
   credentials: true,
   origin: (origin, callback) => {
