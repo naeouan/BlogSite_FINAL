@@ -7,8 +7,8 @@ This full-stack web application is a blog platform that allows users to create, 
 - frontend built with React
 - Backend API with Node.js and Express
 - MongoDB database integration
-
-
+- User Authentication
+- Spotify Integration
 
 
 Technologies Used: List all technologies and tools used in the project:
@@ -20,37 +20,36 @@ Technologies Used: List all technologies and tools used in the project:
 - JSON Web Tokens
 - React Router DOM
 - React Quill
+- bcrypt
+- cookie-parser
+- dotenv
+- cors
+- multer
 
 
 
 Setup Instructions: Provide step-by-step instructions for setting up the project locally
 
-Frontend Setup
+Frontend Setup:
 
 cd client
 npx create-react-app client
-npm install react-router-dom
-npm install react-quill
+npm install react react-dom react-quill react-router-dom react-scripts date-fns web-vitals @testing-library/dom @testing-library/jest-dom @testing-library/react @testing-library/user-event
 
-Backend Setup
+Backend Setup:
+
 cd api
-npm install express
-npm install cors
-npm install mongoose
-npm install jsonwebtoken
-
+npm install express cors mongoose jsonwebtoken cors multer bcrypt cookie-parser dotenv
 
 If react-quill is incompatible: Downgrade react to 18.2.0
 npm install react@18.2.0 react-dom@18.2.0
 If package gets corrupted, clean re-install
 
+
 Folder Structure: Explain the folder structure of the project
 
-
-
-
-
-
+root/api = backend
+root/client = frontend
 
 
 Code Explanation: Break down the key parts of the code
@@ -60,16 +59,17 @@ api/…:
 Index.js
 - checks if a valid token is provided in the request cookies to check if user is authenticated.
 - registers new user by saving their username and hashed password in the database
-- route checks user credentials and, if correct, generates and sends JWT token back to the user
-- route retrieves the logged-in user’s profile if they provide a valid token
+- checks user credentials and, if correct, generates and sends JWT token back to the user
+- retrieves the logged-in user’s profile if they provide a valid token
 - logs out user by clearing JWT token from the cookies
-- route allows authenticated users to create a post, including uploading a file.
+- allows authenticated users to create a post, including uploading a file.
 - allows an authenticated user to update an existing post (only if they are the author).
 - retrieves a list of posts, sorted by creation date.
 - allows the author of a post to delete their post.
 
 client/…:
- CreatePost.js
+
+CreatePost.js:
 Purpose: Create a new blog post.
 Key parts:
 useState manages title, summary, content, file, and redirect status.
@@ -78,13 +78,13 @@ createNewPost() handles form submission and sends data to the backend via POST /
 If successful, redirects to the homepage using <Navigate />.
 
 
-EditPost.js (Currently identical to CreatePost.js)
+EditPost.js (Currently identical to CreatePost.js):
 Fetch existing posts by ID.
 Pre-fill fields with current data.
 Submit changes using PUT or PATCH request.
 
 
- IndexPage.js
+IndexPage.js:
 Purpose: Homepage that lists all blog posts.
 Key parts:
 useEffect() fetches all posts from GET /post.
@@ -92,7 +92,7 @@ Stores posts in useState.
 Maps each post to a <Post /> component.
 
 
-LoginPage.js
+LoginPage.js:
 Purpose: Handles user login.
 Key parts:
 Collects username and password.
@@ -109,7 +109,7 @@ Displays post content, image, and author.
 If logged-in user is the author, shows an Edit button with link to /edit/:id.
 
 
-RegisterPage.js
+RegisterPage.js:
 Purpose: Handles user registration.
 Key parts:
 Takes username and password.
@@ -117,8 +117,11 @@ Sends POST /register request.
 Shows success/failure message based on response.
 
 
-Post.js
+Post.js:
+
+
 Key Parts & Functionality
+
 Imports
 formatISO9075 – formats the createdAt date to readable format.
 Link – allows navigation to other routes/pages without refreshing.
@@ -159,7 +162,6 @@ Future Improvements:
 
 Deployment Link
 
-https://dota2blogsite-1.onrender.com
-https://dota2-blog-site.vercel.app
+https://blogsite-final.onrender.com/
 
 Others: Include photos of you and/or you partner while doing your code
