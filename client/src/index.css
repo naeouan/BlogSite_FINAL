@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  font-family: 'Mason Serif', 'Trajan Pro', Georgia, 'Segoe UI', serif;
+  background-color: #1c1c1c;
+  color: #e0d8c3;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  background-color: #2e2e2e;
+  color: #d4cfa3;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
