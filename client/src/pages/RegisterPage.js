@@ -1,43 +1,93 @@
 import { useState } from "react";
-import { API_URL } from '../config.js';
+import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../config.js";
 
 export default function RegisterPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState({ text: "", type: "" });
+  const navigate = useNavigate();
 
   async function register(ev) {
     ev.preventDefault();
+    setMessage({ text: "", type: "" });
     const response = await fetch(`${API_URL}/register`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ username, password }),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
     });
 
     if (response.status === 201) {
-      alert('Registration successful');
+      setMessage({ text: "Account created! Redirecting to login…", type: "success" });
+      setTimeout(() => navigate("/login"), 1500);
     } else {
       const error = await response.json();
-      alert('Registration failed: ' + (error.message || 'Unknown error'));
+      setMessage({
+        text: "Registration failed: " + (error.message || "Unknown error"),
+        type: "error",
+      });
     }
   }
 
   return (
-    <form className="register" onSubmit={register}>
-      <h1>Register</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={ev => setUsername(ev.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={ev => setPassword(ev.target.value)}
-      />
-      <button>Register</button>
-    </form>
+    <div className="form-page">
+      <div className="form-card">
+        <div className="form-header">
+          <span className="form-eyebrow">Join us</span>
+          <h1>Create account</h1>
+          <p className="form-sub">
+            Already have an account?{" "}
+            <Link to="/login">Sign in</Link>
+          </p>
+        </div>
+
+        <form onSubmit={register}>
+          <div className="input-group">
+            <label className="input-label" htmlFor="reg-username">
+              Username
+            </label>
+            <input
+              id="reg-username"
+              type="text"
+              placeholder="Choose a username"
+              value={username}
+              onChange={(ev) => setUsername(ev.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label className="input-label" htmlFor="reg-password">
+              Password
+            </label>
+            <input
+              id="reg-password"
+              type="password"
+              placeholder="Create a password"
+              value={password}
+              onChange={(ev) => setPassword(ev.target.value)}
+              required
+            />
+          </div>
+
+          {message.text && (
+            <p
+              style={{
+                color: message.type === "success" ? "var(--accent-green)" : "var(--accent-red)",
+                fontSize: "0.85rem",
+                marginTop: "8px",
+              }}
+            >
+              {message.text}
+            </p>
+          )}
+
+          <button type="submit" className="btn-primary">
+            Create account →
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }

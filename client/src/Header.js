@@ -6,12 +6,13 @@ import { API_URL } from "./config.js";
 export default function Header() {
   const { setUserInfo, userInfo } = useContext(UserContext);
   const [quote, setQuote] = useState("");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/profile`, {
       credentials: "include",
-    }).then(response => {
-      response.json().then(userInfo => {
+    }).then((response) => {
+      response.json().then((userInfo) => {
         setUserInfo(userInfo);
       });
     });
@@ -22,7 +23,7 @@ export default function Header() {
       "You can't spell Victory without Meepo... somehow.",
       "Pudge is love. Pudge is life.",
       "Invoker has spoken... too much, as usual.",
-      "Shadow Fiend’s wardrobe called — it’s on fire!",
+      "Shadow Fiend's wardrobe called — it's on fire!",
       "Remember: Roshan always wins.",
       "This lane is mine. So is the jungle. And the shop.",
       "Why walk when you can TP... and feed faster?",
@@ -31,6 +32,10 @@ export default function Header() {
 
     const randomQuote = dotaQuotes[Math.floor(Math.random() * dotaQuotes.length)];
     setQuote(randomQuote);
+
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [setUserInfo]);
 
   function logout() {
@@ -44,73 +49,38 @@ export default function Header() {
   const username = userInfo?.username;
 
   return (
-    <header
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "10px 20px",
-        gap: "20px",
-      }}
-    >
-      <Link
-        to="/"
-        className="logo"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          fontWeight: "bold",
-          fontSize: "1.5rem",
-          flexShrink: 0,
-        }}
-      >
-        <img
-          src="dota2.png"
-          alt="Dota 2 Logo"
-          style={{ width: "30px", height: "30px" }}
-        />
-        My Blog
-      </Link>
+    <header className={`site-header${scrolled ? " scrolled" : ""}`}>
+      <div className="header-inner">
+        {/* Logo */}
+        <Link to="/" className="logo">
+          <img src="dota2.png" alt="Dota 2 Logo" />
+          Dota 2 Blog
+        </Link>
 
-      <div
-        style={{
-          flexGrow: 1,
-          textAlign: "center",
-          fontStyle: "italic",
-          color: "#888",
-          fontSize: "1rem",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-        }}
-        title={quote}
-      >
-        "{quote}"
+        {/* Dota quote ticker */}
+        <div className="header-quote" title={quote}>
+          {quote}
+        </div>
+
+        {/* Nav */}
+        <nav>
+          {username ? (
+            <>
+              <Link to="/create" className="nav-create">
+                + New Post
+              </Link>
+              <span className="nav-logout" onClick={logout}>
+                Logout ({username})
+              </span>
+            </>
+          ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </>
+          )}
+        </nav>
       </div>
-
-      <nav
-        style={{
-          display: "flex",
-          gap: "15px",
-          alignItems: "center",
-          flexShrink: 0,
-        }}
-      >
-        {username ? (
-          <>
-            <Link to="/create">Create new post</Link>
-            <a onClick={logout} style={{ cursor: "pointer" }}>
-              Logout ({username})
-            </a>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-          </>
-        )}
-      </nav>
     </header>
   );
 }
