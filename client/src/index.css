@@ -3,45 +3,45 @@
    ======================================== */
 :root {
   /* Backgrounds */
-  --bg-primary: #0d0d0f;
-  --bg-surface: #141418;
-  --bg-elevated: #1c1c24;
-  --bg-glass: rgba(255, 255, 255, 0.04);
-  --bg-glass-strong: rgba(255, 255, 255, 0.07);
+  --bg-primary: #0B0E11;
+  --bg-surface: #11161B;
+  --bg-elevated: #181E24;
+  --bg-glass: rgba(255, 255, 255, 0.03);
+  --bg-glass-strong: rgba(255, 255, 255, 0.06);
 
   /* Accents */
-  --accent-gold: #f0b429;
-  --accent-gold-dim: #c9921a;
-  --accent-gold-soft: rgba(240, 180, 41, 0.12);
-  --accent-gold-glow: rgba(240, 180, 41, 0.25);
-  --accent-red: #e63946;
-  --accent-red-soft: rgba(230, 57, 70, 0.15);
+  --accent-gold: #DFB86C;
+  --accent-gold-dim: #9F7E3B;
+  --accent-gold-soft: rgba(223, 184, 108, 0.08);
+  --accent-gold-glow: rgba(223, 184, 108, 0.18);
+  --accent-red: #B53221;
+  --accent-red-soft: rgba(181, 50, 33, 0.12);
   --accent-green: #1db954;
 
   /* Text */
-  --text-primary: #f0ede8;
-  --text-secondary: #8a8a9a;
-  --text-muted: #4a4a5a;
+  --text-primary: #ECEBE9;
+  --text-secondary: #9B9C9E;
+  --text-muted: #575A5F;
 
   /* Borders */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-focus: rgba(240, 180, 41, 0.5);
+  --border: rgba(223, 184, 108, 0.12);
+  --border-focus: rgba(223, 184, 108, 0.45);
 
   /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --radius-xl: 32px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
-  --shadow-gold: 0 0 20px rgba(240, 180, 41, 0.2);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.8);
+  --shadow-gold: 0 0 15px rgba(223, 184, 108, 0.12);
 
   /* Transitions */
-  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ========================================
@@ -59,7 +59,10 @@ html {
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: var(--bg-primary);
+  background: 
+    radial-gradient(circle at 10% 15%, rgba(181, 50, 33, 0.09) 0%, transparent 45%), 
+    radial-gradient(circle at 90% 85%, rgba(29, 185, 84, 0.05) 0%, transparent 45%), 
+    #0B0E11;
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;

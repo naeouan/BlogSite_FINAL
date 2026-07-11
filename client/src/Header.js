@@ -63,22 +63,29 @@ export default function Header() {
         </div>
 
         {/* Nav */}
-        <nav>
-          {username ? (
-            <>
-              <Link to="/create" className="nav-create">
-                + New Post
-              </Link>
-              <span className="nav-logout" onClick={logout}>
-                Logout ({username})
-              </span>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
-            </>
-          )}
+        <nav className="nav-links">
+          <div className="nav-menu">
+            <Link to="/">Blog</Link>
+            <Link to="/heroes">Heroes</Link>
+            <Link to="/players">Players</Link>
+          </div>
+          <div className="nav-actions">
+            {username ? (
+              <>
+                <Link to="/create" className="nav-create">
+                  + New Post
+                </Link>
+                <span className="nav-logout" onClick={logout}>
+                  Logout ({username})
+                </span>
+              </>
+            ) : (
+              <>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+              </>
+            )}
+          </div>
         </nav>
       </div>
     </header>

@@ -72,7 +72,13 @@ app.post('/register', async (req, res) => {
       username,
       password: bcrypt.hashSync(password, salt),
     });
-    res.status(201).json(userDoc);
+    jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
+      if (err) return res.status(500).json({ message: 'Error generating token' });
+      res.cookie('token', token, { httpOnly: true }).status(201).json({
+        id: userDoc._id,
+        username,
+      });
+    });
   } catch (e) {
     if (e.code === 11000) {
       res.status(400).json({ message: 'Username taken' });
