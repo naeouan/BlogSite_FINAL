@@ -1,13 +1,11 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
 import { API_URL } from "../config.js";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState({ text: "", type: "" });
-  const { setUserInfo } = useContext(UserContext);
   const navigate = useNavigate();
 
   async function register(ev) {
@@ -21,10 +19,8 @@ export default function RegisterPage() {
     });
 
     if (response.status === 201) {
-      const userInfo = await response.json();
-      setUserInfo(userInfo);
-      setMessage({ text: "Account created! Logging in...", type: "success" });
-      setTimeout(() => navigate("/"), 1500);
+      setMessage({ text: "Account created! Redirecting to login…", type: "success" });
+      setTimeout(() => navigate("/login"), 1500);
     } else {
       const error = await response.json();
       setMessage({
